@@ -4,17 +4,20 @@
 // This program is a clone of the old QBasic game Gorillas made in Processing
 
 // Global Variables 
-PImage gorilla;
+PImage rGorilla; //Image of Right Gorilla
+int rGorillaStartX; //StartX position of Right Gorilla
+int rGorillaStartY; //StartY position of Right Gorilla
 
 //Main Method
 // Precondition: None
 // Postcondition: Screen is sized and city is drawn
 void setup() 
 {
-  gorilla = loadImage("gorilla.png");
+  rGorilla = loadImage("gorilla.png"); //loads image for gorilla
   size(800, 600); //Hardcoded Resolution of Screen
   drawCity(); //Draw the City buildings
-  image(gorilla, 400 , 10);
+  image(rGorilla, rGorillaStartX, rGorillaStartY); //This draws the right gorilla
+  println("The Silly Gorilla on the Right is standing at X="+ rGorillaStartX + " and Y=" +rGorillaStartY+" 8-|) -Monkeyface"); //logs silly primate's coordinates 
 }
 
 //drawCity buildings method
@@ -62,10 +65,15 @@ void drawCity()
     
     cityOverallWidth = cityOverallWidth + thisBuildWidth + buildSpace; //Add building width and space between buildings to running city overall width
     
+    //Determines the start position of the Gorilla on the Right
+    rGorillaStartX= round(thisBuildStartX+0.3*thisBuildWidth); //Janky 0.3 is because I never found the center of gorilla so its a rough centering. Should be changed to 0.5 when proper
+    rGorillaStartY = thisBuildStartY-30; //-30 pixes for the height of gorilla.png is (because I never found the center of gorilla)
+    
     //If there is not enough space for a new building set roomForBulding to false and stop
     if (cityOverallWidth + buildMaxWidth >= scrWidth) {
       println("EXPECTED ERROR: Out of room for more buildings");
       println("I was able to generate " + cntBuildings + " buildings in your wonderful city :)");
+      
       roomForBuilding = false;
     }
     thisBuildStartX = thisBuildStartX + thisBuildWidth + buildSpace; //Increase startX for next building
