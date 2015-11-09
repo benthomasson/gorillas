@@ -5,19 +5,32 @@
 
 // Global Variables 
 PImage rGorilla; //Image of Right Gorilla
+PImage lGorilla; //Image of Left Gorilla
+PImage happySun; //Image of the Sun
+
 int rGorillaStartX; //StartX position of Right Gorilla
 int rGorillaStartY; //StartY position of Right Gorilla
+
+int lGorillaStartX; //StartX position of Left Gorilla
+int lGorillaStartY; //StartY position of Left Gorilla
 
 //Main Method
 // Precondition: None
 // Postcondition: Screen is sized and city is drawn
 void setup() 
 {
-  rGorilla = loadImage("gorilla.png"); //loads image for gorilla
+  rGorilla = loadImage("gorilla.png"); //loads image for RIGHT gorilla
+  lGorilla = loadImage("gorilla.png");  //loads image for LEFT gorilla
+  happySun = loadImage("happysun.png");  //loads image for the SUN :)
   size(800, 600); //Hardcoded Resolution of Screen
-  drawCity(); //Draw the City buildings
+ 
+  drawCity(); //Draw the City buildings DRAW EVERYTHING AFTER CITY
+  
+  image(happySun, 400, 20); //hardcoded sun to be top center
+  image(lGorilla, lGorillaStartX, lGorillaStartY); //This draws the left gorilla
+  println("The Silly Gorilla on the LEFT is standing at X="+ lGorillaStartX + " and Y=" +lGorillaStartY+" 8-|) -Monkeyface"); //logs silly primate's coordinates 
   image(rGorilla, rGorillaStartX, rGorillaStartY); //This draws the right gorilla
-  println("The Silly Gorilla on the Right is standing at X="+ rGorillaStartX + " and Y=" +rGorillaStartY+" 8-|) -Monkeyface"); //logs silly primate's coordinates 
+  println("The Silly Gorilla on the RIGHT is standing at X="+ rGorillaStartX + " and Y=" +rGorillaStartY+" 8-|) -Monkeyface"); //logs silly primate's coordinates 
 }
 
 //drawCity buildings method
@@ -48,7 +61,8 @@ void drawCity()
   int cityOverallWidth = 0; //Variable to hold Running Width of buildings in city
   int thisBuildStartX = 2; //Starting X position for buildings, Increases with each building
   int cntBuildings = 0; //Running Count of Buildings
-
+  boolean firstBuilding = true; //Boolean to place left gorilla on first building
+  
   //Loop that draws buildings until There is no more room for buildings
   while (roomForBuilding) 
   {
@@ -62,6 +76,15 @@ void drawCity()
     int thisBuildWidth = round(random(buildMinWidth, buildMaxWidth));
     int thisBuildHeight = scrHeight-thisBuildStartY;
     rect(thisBuildStartX, thisBuildStartY, thisBuildWidth, thisBuildHeight);
+    
+    //This sets up left Gorilla's Start Position
+    if(firstBuilding)
+    { 
+      lGorillaStartX= round(thisBuildStartX+0.3*thisBuildWidth);
+      lGorillaStartY = thisBuildStartY-30;
+      firstBuilding =false; //After setting Left gorillas start position, make this false. 
+    }
+      
     
     cityOverallWidth = cityOverallWidth + thisBuildWidth + buildSpace; //Add building width and space between buildings to running city overall width
     
