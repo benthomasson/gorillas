@@ -3,14 +3,18 @@
 // File: Gorillas.pde
 // This program is a clone of the old QBasic game Gorillas made in Processing
 
+// Global Variables 
+PImage gorilla;
 
 //Main Method
 // Precondition: None
 // Postcondition: Screen is sized and city is drawn
 void setup() 
 {
+  gorilla = loadImage("gorilla.png");
   size(800, 600); //Hardcoded Resolution of Screen
   drawCity(); //Draw the City buildings
+  image(gorilla, 400 , 10);
 }
 
 //drawCity buildings method
